@@ -7,7 +7,7 @@ const courseApi = api.injectEndpoints({
       query: (query: any) => ({
         url: "/course",
         method: "GET",
-        params: query.params,
+        params: query,
       }),
     }),
   }),

@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "../../components/Shared/Loading";
 import { useGetCourseQuery } from "../../redux/features/course/courseApiSlice";
+import { useDebounced } from "../../utils/hooks";
 
 export default function Course() {
   const fetchQuery: any = {};
@@ -14,6 +15,14 @@ export default function Course() {
   fetchQuery["page"] = page;
   fetchQuery["searchTerm"] = searchTerm;
 
+  const debouncedSearchTerm = useDebounced(searchTerm, 600);
+
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      fetchQuery["searchTerm"] = debouncedSearchTerm;
+    }
+  }, [debouncedSearchTerm, fetchQuery]);
+
   const { data, isLoading } = useGetCourseQuery(fetchQuery);
 
   if (isLoading) {
@@ -22,6 +31,14 @@ export default function Course() {
 
   return (
     <div className="max-w-7xl mx-auto p-2">
+      <div className="flex justify-end my-5">
+        <input
+          onChange={(e) => setSearchTerm(e.target.value)}
+          type="text"
+          placeholder="Search..."
+          className="input input-bordered input-sm w-full max-w-xs"
+        />
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2">
         {data?.data?.map((course: any) => (
           <div
