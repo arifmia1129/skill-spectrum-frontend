@@ -7,7 +7,7 @@ import { useDebounced } from "../../utils/hooks";
 export default function Course() {
   const fetchQuery: any = {};
 
-  const [size, setSize] = useState<number>(10);
+  const [size, setSize] = useState<string>("5");
   const [page, setPage] = useState<number>(1);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -67,6 +67,36 @@ export default function Course() {
             </div>
           </div>
         ))}
+      </div>
+      <div className="flex justify-end mb-5 mt-10">
+        <select
+          defaultValue={size}
+          onChange={(e) => setSize(e.target.value)}
+          className="select select-bordered  select-xs"
+        >
+          <option value="2">2</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="10">20</option>
+        </select>
+      </div>
+      <div className="join grid grid-cols-2 mb-10">
+        <button
+          onClick={() => {
+            if (page > 1) {
+              setPage(page - 1);
+            }
+          }}
+          className="join-item btn btn-outline"
+        >
+          Previous page
+        </button>
+        <button
+          onClick={() => setPage(page + 1)}
+          className="join-item btn btn-outline"
+        >
+          Next
+        </button>
       </div>
     </div>
   );
