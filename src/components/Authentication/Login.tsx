@@ -29,32 +29,15 @@ const Login = () => {
 
   const onSubmit = async (userData: any) => {
     setIsProcessing(true);
-    // try {
-    //   const { data } = await api.post("user/login", userData);
-
-    //   if (data.success) {
-    //     localStorage.removeItem("user");
-    //     localStorage.setItem("user", JSON.stringify(data.data));
-    //     toast.success(data.message);
-    //     reset();
-    //     navigate(from, { replace: true });
-    //   } else {
-    //     toast.error(data.message);
-    //   }
-    // } catch (error) {
-    //   toast.error(error.response.data.error);
-    // } finally {
-    //   setIsProcessing(false);
-    // }
   };
 
-  if (isProcessing || isLoading) {
+  if (isProcessing) {
     return <Loading />;
   }
 
   return (
     <div className="flex items-center justify-center h-[60vh] mb-10">
-      <div className="md:w-1/2 mx-2 w-full">
+      <div className="mx-2 w-fit">
         <div className="bg-primary rounded-lg p-5 md:p-10">
           <h1 className="mb-6 text-3xl font-semibold text-center text-white">
             Login
@@ -64,20 +47,20 @@ const Login = () => {
               <div className="space-y-4">
                 <div className="w-full max-w-md">
                   <label htmlFor="mobile" className="block text-white">
-                    Mobile
+                    ID
                   </label>
                   <input
-                    {...register("mobile", {
-                      required: "Mobile number is required",
+                    {...register("id", {
+                      required: "ID is required",
                     })}
                     type="text"
                     id="mobile"
-                    placeholder="Enter a valid mobile number"
+                    placeholder="Write your ID"
                     className="input w-full md:w-96"
                   />
                   {errors.mobile && (
                     <span className="text-red-500 text-sm">
-                      {errors.mobile.message}
+                      {errors?.id?.message as string}
                     </span>
                   )}
                 </div>
@@ -96,7 +79,7 @@ const Login = () => {
                   />
                   {errors.password && (
                     <span className="text-red-500 text-sm">
-                      {errors.password.message}
+                      {errors.password.message as string}
                     </span>
                   )}
                 </div>
