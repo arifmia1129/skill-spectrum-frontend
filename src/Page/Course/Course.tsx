@@ -1,9 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState } from "react";
 import Loading from "../../components/Shared/Loading";
 import { useGetCourseQuery } from "../../redux/features/course/courseApiSlice";
 
 export default function Course() {
-  const { data, isLoading } = useGetCourseQuery(undefined);
+  const fetchQuery: any = {};
+
+  const [size, setSize] = useState<number>(10);
+  const [page, setPage] = useState<number>(1);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  fetchQuery["limit"] = size;
+  fetchQuery["page"] = page;
+  fetchQuery["searchTerm"] = searchTerm;
+
+  const { data, isLoading } = useGetCourseQuery(fetchQuery);
 
   if (isLoading) {
     return <Loading />;

@@ -4,7 +4,7 @@ export default function Navbar() {
   const menuItems = (
     <>
       <NavLink
-        to="/sponsor"
+        to="/"
         className={({ isActive }) =>
           isActive ? "font-bold text-primary mx-2" : "mx-2"
         }
