@@ -10,7 +10,13 @@ const courseApi = api.injectEndpoints({
         params: query,
       }),
     }),
+    getCourseById: build.query({
+      query: (id: any) => ({
+        url: `/course/${id}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetCourseQuery } = courseApi;
+export const { useGetCourseQuery, useGetCourseByIdQuery } = courseApi;

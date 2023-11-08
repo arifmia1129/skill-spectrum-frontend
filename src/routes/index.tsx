@@ -3,6 +3,7 @@ import Course from "../Page/Course/Course";
 import Navbar from "../components/Shared/Navbar";
 import Header from "../components/Shared/Header";
 import NotFound from "../Page/NotFound/NotFound";
+import CourseDetails from "../Page/Course/CourseDetails";
 
 export default function Index() {
   return (
@@ -11,6 +12,7 @@ export default function Index() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Course />} />
+        <Route path="/course-details/:id" element={<CourseDetails />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

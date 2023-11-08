@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Loading from "../../components/Shared/Loading";
 import { useGetCourseQuery } from "../../redux/features/course/courseApiSlice";
 import { useDebounced } from "../../utils/hooks";
+import { Link } from "react-router-dom";
 
 export default function Course() {
   const fetchQuery: any = {};
@@ -60,9 +61,12 @@ export default function Course() {
                 <button className="btn btn-primary btn-sm text-white mx-2">
                   Enroll
                 </button>
-                <button className="btn btn-outline btn-sm text-primary mx-2 border-2">
+                <Link
+                  to={`/course-details/${course._id}`}
+                  className="btn btn-outline btn-sm text-primary mx-2 border-2"
+                >
                   Details
-                </button>
+                </Link>
               </div>
             </div>
           </div>
