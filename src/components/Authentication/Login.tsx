@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import Loading from "../Shared/Loading";
 
@@ -91,13 +91,10 @@ const Login = () => {
                     Login
                   </button>
                 </div>
-                <p className="text-white">
+                <p className="text-white text-center">
                   Don't have an account?{" "}
-                  <span
-                    className="text-primary hover:underline cursor-pointer"
-                    onClick={() => navigate("/signup")}
-                  >
-                    Sign up
+                  <span className="text-white hover:underline cursor-pointer">
+                    <Link to="/register">Register</Link>
                   </span>
                 </p>
               </div>

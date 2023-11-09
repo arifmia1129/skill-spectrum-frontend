@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // ... other imports
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useStudentRegisterMutation } from "../../redux/features/user/userApiSlice";
 import toast from "react-hot-toast";
 import { useState } from "react";
@@ -14,6 +14,7 @@ const Register = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const dispatch = useAppDispatch();
@@ -37,6 +38,7 @@ const Register = () => {
         (document as any)?.getElementById("student_id_modal").showModal();
         setIsProcessing(false);
         toast.success(data.message);
+        reset();
       } else if (error) {
         setIsProcessing(false);
         toast.error(error.data.message);

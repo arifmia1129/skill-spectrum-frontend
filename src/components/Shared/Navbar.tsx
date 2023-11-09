@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export default function Navbar() {
   const menuItems = (
@@ -54,7 +54,9 @@ export default function Navbar() {
         <ul className="menu menu-horizontal px-1">{menuItems}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn bg-primary text-white btn-sm">Login</a>
+        <Link to="/login" className="btn bg-primary text-white btn-sm">
+          Login
+        </Link>
       </div>
     </div>
   );
