@@ -10,6 +10,7 @@ import Dashboard from "../Page/Dashboard/Dashboard";
 import PrivateRoute from "../components/Authentication/PrivateRoute";
 import Profile from "../Page/Dashboard/Profile";
 import Ernollment from "../Page/Dashboard/Ernollment";
+import MyEnrollment from "../Page/Dashboard/MyEnrollment";
 
 export default function Index() {
   return (
@@ -31,6 +32,7 @@ export default function Index() {
         >
           <Route path="profile" element={<Profile />} />
           <Route path="enroll/:id" element={<Ernollment />} />
+          <Route path="my-enrollment" element={<MyEnrollment />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

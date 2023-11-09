@@ -11,6 +11,14 @@ export default function Dashboard() {
       >
         Profile
       </NavLink>
+      <NavLink
+        to="/dashboard/my-enrollment"
+        className={({ isActive }) =>
+          isActive ? "font-bold text-primary mx-2" : "mx-2"
+        }
+      >
+        My Enrollment
+      </NavLink>
     </>
   );
 
