@@ -2,6 +2,12 @@
 // ... other imports
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { useStudentRegisterMutation } from "../../redux/features/user/userApiSlice";
+import toast from "react-hot-toast";
+import { useState } from "react";
+import Loading from "../Shared/Loading";
+import { useAppDispatch } from "../../redux/hook";
+import { addStudentId } from "../../redux/features/student/studentSlice";
 
 const Register = () => {
   const {
@@ -9,11 +15,42 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const navigate = useNavigate();
+
+  const dispatch = useAppDispatch();
+
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const [studentRegister] = useStudentRegisterMutation();
 
   const onSubmit = async (info: any) => {
-    console.log(info);
+    try {
+      setIsProcessing(true);
+
+      const { password, ...other } = info;
+
+      const { data, error } = (await studentRegister({
+        password,
+        student: other,
+      })) as any;
+      if (data) {
+        dispatch(addStudentId(data.data.id));
+        (document as any)?.getElementById("student_id_modal").showModal();
+        setIsProcessing(false);
+        toast.success(data.message);
+      } else if (error) {
+        setIsProcessing(false);
+        toast.error(error.data.message);
+      }
+    } catch (error) {
+      // console.log(error);
+    } finally {
+      setIsProcessing(false);
+    }
   };
+
+  if (isProcessing) {
+    return <Loading />;
+  }
 
   return (
     <div className="flex items-center justify-center max-w-7xl mx-auto">
@@ -255,10 +292,7 @@ const Register = () => {
           </form>
           <p className="text-white mt-4 text-center">
             Already have an account?{" "}
-            <span
-              className="text-white hover:underline cursor-pointer"
-              onClick={() => navigate("/login")}
-            >
+            <span className="text-white hover:underline cursor-pointer">
               <Link to="/login">Login</Link>
             </span>
           </p>
