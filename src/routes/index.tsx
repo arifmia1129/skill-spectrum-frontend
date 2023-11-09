@@ -8,6 +8,8 @@ import LoginPage from "../Page/Authentication/LoginPage";
 import Register from "../components/Authentication/Register";
 import Dashboard from "../Page/Dashboard/Dashboard";
 import PrivateRoute from "../components/Authentication/PrivateRoute";
+import Profile from "../Page/Dashboard/Profile";
+import Ernollment from "../Page/Dashboard/Ernollment";
 
 export default function Index() {
   return (
@@ -26,7 +28,10 @@ export default function Index() {
               <Dashboard />
             </PrivateRoute>
           }
-        ></Route>
+        >
+          <Route path="profile" element={<Profile />} />
+          <Route path="enroll/:id" element={<Ernollment />} />
+        </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

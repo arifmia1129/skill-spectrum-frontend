@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useParams } from "react-router-dom";
 import { useGetCourseByIdQuery } from "../../redux/features/course/courseApiSlice";
+import { useAppDispatch } from "../../redux/hook";
+import { addEnrollInfo } from "../../redux/features/enroll/enrollSlice";
 
-export default function CourseDetails() {
+export default function Ernollment() {
   const { id } = useParams();
   const { data } = useGetCourseByIdQuery(id);
+  const dispatch = useAppDispatch();
 
   // Format prerequisites to a string or any other format you need
   const prerequisites = data?.data?.prerequisites.join(", ");
-
   return (
     <div className="max-w-7xl mx-auto p-2">
       <div className="border-primary border-2 rounded m-2 p-2">
@@ -49,6 +51,24 @@ export default function CourseDetails() {
               ))}
             </ul>
           </div>
+        </div>
+        <div className="flex justify-center">
+          <button
+            onClick={() => {
+              dispatch(
+                addEnrollInfo({
+                  id: data?.data?._id,
+                  name: data?.data?.name,
+                  imageUrl: data?.data?.thumbnail,
+                })
+              );
+
+              (document as any)?.getElementById("enroll_modal").showModal();
+            }}
+            className="btn btn-primary  text-white mx-2"
+          >
+            Enroll
+          </button>
         </div>
       </div>
     </div>

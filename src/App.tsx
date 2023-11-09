@@ -4,6 +4,7 @@ import StudentIdModal from "./components/Modal/StudentIdModal";
 import { useAppDispatch } from "./redux/hook";
 import { fetchedUserProfile } from "./redux/features/user/userSlice";
 import { useEffect } from "react";
+import EnrollmentModal from "./components/Modal/EnrollmentModal";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -16,6 +17,7 @@ function App() {
       <Index />
       <Toaster />
       <StudentIdModal />
+      <EnrollmentModal />
     </>
   );
 }

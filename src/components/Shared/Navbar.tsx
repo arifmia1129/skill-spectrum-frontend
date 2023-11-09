@@ -18,7 +18,7 @@ export default function Navbar() {
         Course
       </NavLink>
       <NavLink
-        to="/dashboard"
+        to="/dashboard/profile"
         className={({ isActive }) =>
           isActive ? "font-bold text-primary " : "mx-2"
         }

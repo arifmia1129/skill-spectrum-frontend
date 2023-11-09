@@ -58,9 +58,12 @@ export default function Course() {
                 <span className="text-gray-400">by</span> {course?.instructor}
               </p>
               <div className="mb-2 flex mt-5">
-                <button className="btn btn-primary btn-sm text-white mx-2">
+                <Link
+                  to={`/dashboard/enroll/${course._id}`}
+                  className="btn btn-primary btn-sm text-white mx-2"
+                >
                   Enroll
-                </button>
+                </Link>
                 <Link
                   to={`/course-details/${course._id}`}
                   className="btn btn-outline btn-sm text-primary mx-2 border-2"
