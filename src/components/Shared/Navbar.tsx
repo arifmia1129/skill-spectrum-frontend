@@ -1,6 +1,12 @@
 import { Link, NavLink } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import { fetchedUserProfile } from "../../redux/features/user/userSlice";
 
 export default function Navbar() {
+  const dispatch = useAppDispatch();
+
+  const { profile } = useAppSelector((state) => state.user);
+
   const menuItems = (
     <>
       <NavLink
@@ -12,7 +18,7 @@ export default function Navbar() {
         Course
       </NavLink>
       <NavLink
-        to="/sponsor-child"
+        to="/dashboard"
         className={({ isActive }) =>
           isActive ? "font-bold text-primary " : "mx-2"
         }
@@ -54,9 +60,21 @@ export default function Navbar() {
         <ul className="menu menu-horizontal px-1">{menuItems}</ul>
       </div>
       <div className="navbar-end">
-        <Link to="/login" className="btn bg-primary text-white btn-sm">
-          Login
-        </Link>
+        {profile ? (
+          <button
+            onClick={() => {
+              localStorage.removeItem("token");
+              dispatch(fetchedUserProfile());
+            }}
+            className="btn bg-primary text-white btn-sm"
+          >
+            Log out
+          </button>
+        ) : (
+          <Link to="/login" className="btn bg-primary text-white btn-sm">
+            Login
+          </Link>
+        )}
       </div>
     </div>
   );

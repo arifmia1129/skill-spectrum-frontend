@@ -26,7 +26,7 @@ export const fetchedUserProfile = createAsyncThunk(
       localStorage.removeItem("token");
     }
 
-    return data.data;
+    return data.data.student;
   }
 );
 

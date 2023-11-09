@@ -5,6 +5,9 @@ import { toast } from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import Loading from "../Shared/Loading";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import { useLoginMutation } from "../../redux/features/auth/authApiSlice";
+import { fetchedUserProfile } from "../../redux/features/user/userSlice";
 
 const Login = () => {
   const [isProcessing, setIsProcessing] = useState(false);
@@ -19,19 +22,39 @@ const Login = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
-  //   const [user, isLoading] = useUser();
+  const { profile, isLoading } = useAppSelector((state) => state.user);
+  const [login] = useLoginMutation();
+  const dispatch = useAppDispatch();
 
-  //   useEffect(() => {
-  //     if (user?.success) {
-  //       navigate(from, { replace: true });
-  //     }
-  //   }, [from, user, navigate, isLoading]);
+  useEffect(() => {
+    if (profile) {
+      navigate(from, { replace: true });
+    }
+  }, [from, navigate, isLoading, profile]);
 
-  const onSubmit = async (userData: any) => {
-    setIsProcessing(true);
+  const onSubmit = async (info: any) => {
+    try {
+      setIsProcessing(true);
+
+      const { data, error } = (await login(info)) as any;
+      if (data) {
+        localStorage.setItem("token", data.data.accessToken);
+        setIsProcessing(false);
+        toast.success(data.message);
+        reset();
+        dispatch(fetchedUserProfile());
+      } else if (error) {
+        setIsProcessing(false);
+        toast.error(error.data.message);
+      }
+    } catch (error) {
+      // console.log(error);
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
-  if (isProcessing) {
+  if (isProcessing || isLoading) {
     return <Loading />;
   }
 
