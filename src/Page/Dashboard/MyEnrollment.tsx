@@ -7,8 +7,6 @@ export default function MyEnrollment() {
 
   const enrollments = data?.data;
 
-  console.log(enrollments);
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-2">
       {enrollments?.map((enrollment: any) => (

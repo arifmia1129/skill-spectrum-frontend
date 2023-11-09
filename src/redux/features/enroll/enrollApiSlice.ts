@@ -10,6 +10,14 @@ const enrollApi = api.injectEndpoints({
         body: data,
       }),
     }),
+    updateEnrollment: build.mutation({
+      query: ({ id, data }: any) => ({
+        url: `enrollment/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["enrollment"],
+    }),
     getEnrollCourse: build.query({
       query: () => ({
         url: "enrollment",
@@ -18,8 +26,13 @@ const enrollApi = api.injectEndpoints({
           Authorization: localStorage.getItem("token"),
         },
       }),
+      providesTags: ["enrollment"],
     }),
   }),
 });
 
-export const { useEnrollCourseMutation, useGetEnrollCourseQuery } = enrollApi;
+export const {
+  useEnrollCourseMutation,
+  useGetEnrollCourseQuery,
+  useUpdateEnrollmentMutation,
+} = enrollApi;

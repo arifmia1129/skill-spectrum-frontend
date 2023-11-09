@@ -7,7 +7,7 @@ const api = createApi({
     baseUrl: baseUrl,
   }),
   endpoints: () => ({}),
-  tagTypes: ["addBook"],
+  tagTypes: ["enrollment"],
 });
 
 export default api;

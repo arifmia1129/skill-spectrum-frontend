@@ -1,4 +1,5 @@
 import { useGetCourseByIdQuery } from "../../redux/features/course/courseApiSlice";
+import { useUpdateEnrollmentMutation } from "../../redux/features/enroll/enrollApiSlice";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export default function SingleEnrollment({ enrollment }: any) {
@@ -6,6 +7,8 @@ export default function SingleEnrollment({ enrollment }: any) {
   console.log(data);
 
   const course = data?.data;
+
+  const [updateEnrollment] = useUpdateEnrollmentMutation();
 
   return (
     <div
@@ -23,12 +26,27 @@ export default function SingleEnrollment({ enrollment }: any) {
         </p>
         <div className="flex items-center">
           <progress
-            className="progress w-56"
+            className="progress w-56 progress-primary"
             value={Number(enrollment?.progress)}
             max="100"
           />
           <p className="mx-5">{Number(enrollment?.progress)}%</p>
         </div>
+        {enrollment?.status === "enrolled" ? (
+          <button
+            onClick={() => {
+              updateEnrollment({
+                id: enrollment._id,
+                data: {
+                  status: "completed",
+                },
+              });
+            }}
+            className="mt-5 btn btn-outline  btn-primary"
+          >
+            Make as complete
+          </button>
+        ) : null}
       </div>
     </div>
   );
